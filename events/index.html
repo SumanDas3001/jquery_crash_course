@@ -5,17 +5,71 @@
     </head>
     <body>
         <div id="container">
-					<h3>Mouse events</h3>
-					<button id="btn1">Button 1</button>
-					<button id="btn2">Button 2</button>
-					<p class="para1">jquery is build on top</p>
-				</div>
-				<script>
-					$(document).ready(function(){
-						$('#btn1').click(function(){
-							alert('Buttion one clicked!!');
-						});
-					});
-				</script>
+			<h3>Mouse events</h3>
+			<button id="btn1">Button 1</button>
+			<button id="btn2">Button 2</button>
+			<button id="add">Add new</button>
+			<div id="container">
+					<button class="alert">alert!</button>
+			</div>
+			<p class="para1">jquery is build on top</p>
+		</div>
+		<script>
+			$(document).ready(function(){
+				// $('#btn1').click(function(){
+				// 	alert('Buttion clicked!!');
+				// });
+				// $('#btn1').on('click',function(){
+				// 	alert('Buttion clicked!!!');
+				// });
+				// $('button#add').click(function(){
+				// 	var html = "<button class='alert'>Alert!</button>";
+				// 	$('button.alert:last').parent().append(html);
+				// });
+				// $('#btn1').on('click',function(){
+				// 	$('.para1').hide();
+				// 	$('.para1').toggle();
+				// });
+				// $('#btn2').on('click', function(){
+				// 	$('.para1').show();
+				// });
+				// $('#btn1').dblclick('click', function(){
+				// 	$('.para1').toggle();
+				// });
+				// $('#btn1').hover(function(){
+				// 	$('.para1').toggle();
+				// });
+				// $('#btn1').on('mouseenter', function(){
+				// 	$('.para1').toggle();
+				// });
+				// $('#btn1').on('mouseleave', function(){
+				// 	$('.para1').toggle();
+				// });
+				// $('#btn1').on('mousemove', function(){
+				// 	$('.para1').toggle();
+				// });
+				// $('#btn1').on('mouseleave', function(){
+				// 	$('.para1').toggle();
+				// });
+				// $('#btn1').on('mousedown', function(){
+				// 	$('.para1').toggle();
+				// });
+
+				// $('#btn1').click(function(event){
+				// 	alert(event.currentTarget.id);
+				// 	alert(event.currentTarget.innerHTML);
+				// 	alert(event.currentTarget.outerHTML);
+				// 	alert(event.currentTarget.className);
+				// });
+
+				// $('#btn1').on('mouseup', function(){
+				// 	$('.para1').toggle();
+				// });
+
+				// $(document).on('mousemove', function(){
+				// 	$('#coords')
+				// });
+			});
+		</script>
     </body>
 </html>
