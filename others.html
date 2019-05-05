@@ -1,0 +1,201 @@
+$(document).ready(function(){
+
+	var request_alert = $.ajax({
+		url: '/admin/dashboard/',
+		dataType: "json",
+		type: 'GET',
+	});
+	request_alert.done(function(data, textStatus, jqXHR){
+		// console.log(data);
+		load_alert_graph(data);
+		load_transaction_graph(data);
+	});
+
+  $("#critical_alert").click('click', function(){
+    var current_admin_id = $('#currnt_user_id').val();
+    request_transaction = $.ajax({
+      url: '/admin/dashboard/',
+      type: 'GET',
+      data: {user_id: current_admin_id},
+    });
+    request_transaction.done(function(data, textStatus, jqXHR){
+    	var html = "";
+  	  html += '<div class="row">';
+				html += '<div class="col s6">';
+					html += '<div class="card">';
+						html += '<table class="striped">';
+							html += '<thead>';
+								html += '<tr>';
+									html += '<th>Unit Id</th>';
+									html += '<th>Client id</th>';
+									html += '<th>Alert type</th>';
+									html += '<a href="#">Close</a>'
+								html += '</tr>';
+							html += '</thead>';
+							html += '<tbody>'
+    					for (i=0; i<data.total_alert.length; i++){
+								html += '<tr>'
+									html += '<td>'+data.total_alert[i].unit_id+'</td>'
+									html += '<td>'+data.total_alert[i].client_id+'</td>'
+									html += '<td>'+data.total_alert[i].alert_type+'</td>'
+								html += '</tr>'
+							}
+							html += '</tbody>'
+						html += '</table>';
+					html += '</div>';
+				html += '</div>';
+			html += '</div>';
+			$('#total_critical_alert').html(html);
+    });
+  });
+
+
+	window.onload = function(){
+		dashboard_data();
+		load_alert_graph();
+		load_transaction_graph();
+	};
+
+	function dashboard_data(){
+		new Chart(document.getElementById("horizontal-bar-chart"), {
+	    type: 'horizontalBar',
+	    data: {
+	      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+	      datasets: [
+	        {
+	          label: "Population (millions)",
+	          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+	          data: [2478,5267,734,784,433]
+	        }
+	      ]
+	    },
+	    options: {
+	      legend: { display: false },
+	      title: {
+	        display: true,
+	        text: 'Predicted world population (millions) in 2050'
+	      }
+	    }
+	  });
+	}
+
+	  new Chart(document.getElementById("pie-chart"), {
+	    type: 'pie',
+	    data: {
+	      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+	      datasets: [
+	        {
+	          label: "Population (millions)",
+	          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+	          data: [2478,5267,734,784,433]
+	        }
+	      ]
+	    },
+	    options: {
+	      legend: { display: false },
+	      title: {
+	        display: true,
+	        text: 'Predicted world population (millions) in 2050'
+	      }
+	    }
+	  });
+
+	  new Chart(document.getElementById("horizontal-bar-chart2"), {
+	    type: 'horizontalBar',
+	    data: {
+	      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+	      datasets: [
+	        {
+	          label: "Population (millions)",
+	          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+	          data: [2478,5267,734,784,433]
+	        }
+	      ]
+	    },
+	    options: {
+	      legend: { display: false },
+	      title: {
+	        display: true,
+	        text: 'Predicted world population (millions) in 2050'
+	      }
+	    }
+	  });
+
+	  new Chart(document.getElementById("bar-chart"), {
+	    type: 'bar',
+	    data: {
+	      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+	      datasets: [
+	        {
+	          label: "Population (millions)",
+	          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+	          data: [2478,5267,734,784,433]
+	        }
+	      ]
+	    },
+	    options: {
+	      legend: { display: false },
+	      title: {
+	        display: true,
+	        text: 'Predicted world population (millions) in 2050'
+	      }
+	    }
+	  });
+
+	  function load_alert_graph(data){
+	  	var dates = []
+	  	var count = []
+	  	jQuery.each(data.created_time, function(i, val){
+	  		dates.push(val.date);
+	  		count.push(val.count);
+	  	});
+		  new Chart(document.getElementById("multi-line-chart"), {
+		    type: 'line',
+		    data: {
+		      labels: dates,
+		      datasets: [{ 
+		          data: count,
+		          label: "Alert",
+		          borderColor: "red",
+		          fill: true
+		        }
+		      ]
+		    },
+		    options: {
+		      title: {
+		        display: true,
+		        text: 'Critical alert'
+		      }
+		    }
+		  });
+		}
+
+		function load_transaction_graph(data){
+			var dates = []
+			var amount = []
+	  	console.log(data.transaction);
+	  	jQuery.each(data.transaction, function(i, val){
+	  		dates.push(val.date);
+	  		amount.push(val.sum);
+	  	});
+		  new Chart(document.getElementById("single-line-chart"), {
+		    type: 'line',
+		    data: {
+		      labels: dates,
+		      datasets: [{ 
+		          data: amount,
+		          label: "transaction",
+		          borderColor: "#3e95cd",
+		          fill: true
+		        }
+		      ]
+		    },
+		    options: {
+		      title: {
+		        display: true,
+		        text: 'Total transactions of a day'
+		      }
+		    }
+		  });
+		}
+});
